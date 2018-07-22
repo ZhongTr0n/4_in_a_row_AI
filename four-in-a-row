@@ -1,0 +1,85 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Jul 21 21:09:44 2018
+
+@author: bruno
+"""
+
+import numpy as np
+
+# Create playing field
+
+# board = np.zeros((6,9), dtype=int)
+board = np.array([[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                 [1, 1, 0, 0, 0, 1, 0, 0, 1]], dtype=int)
+
+print(board)
+position = (0,0)
+
+print(' ')
+
+print('Change board')
+print(' ')
+
+def make_move(gameboard, player):
+    # move = int(input('Give number'))
+    move = 5
+    if player == 'computer':
+        stone = 2
+    else:
+        stone = 1
+    for rownumber in reversed(range(6)):
+        if gameboard[rownumber][move] == 0:
+            gameboard[rownumber][move] = stone
+            position = (rownumber, move)
+            break
+    return (gameboard, position)
+
+
+board, position = make_move(board, 'Bruno')
+
+
+def check_board(gameboard, position):
+    row = position[0]
+    col = position[1]
+    stone = board[position]
+    # Check vertical
+    if row < 3:
+        if (board[row][col] == stone) and (board[row+1][col] == stone) and (board[row+2][col] == stone) and (board[row+3][col] == stone):
+            print('Vertical 4 in a row')
+            return True
+    # Check horizontal
+    horizontal_range = range((col-3), (col+3))          # Make range van alle mogelijke posities om 4 op een rij te maken op die rij
+    horizontal_range = [item for item in horizontal_range if ((item >= 0) and (item < 6))] # Verwijder alle posities uit range die niet in het board liggen
+    for i in horizontal_range:
+        if (board[row][i] == stone) and (board[row][i+1] == stone) and (board[row][i+2] == stone) and (board[row][i+3] == stone):
+            print('Horizontal 4 in a row')
+            return True
+    # Check diagonal
+        # Make ranges
+    horizontal_range = range((col-3), (col+3))          # Make range van alle mogelijke posities om 4 op een rij te maken op die rij
+    horizontal_range = [item for item in horizontal_range if ((item >= 0) and (item < 9))] # Verwijder alle posities uit range die niet in het board liggen
+    vertical_range = range((row-3), (row+3))          # Make range van alle mogelijke posities om 4 op een rij te maken op die rij
+    vertical_range = [item for item in vertical_range if ((item >= 0) and (item < 3))] # Verwijder alle posities uit range die niet in het board liggen
+        # Check left-right
+    print('Horizontal range:')
+    print(horizontal_range)
+    print('')
+    print('Vertical range')
+    print(vertical_range)
+    print('')
+    print(board)
+    
+    
+check_board(board, position)
+# Create bruteforce look-up table
+
+
+
+
+
